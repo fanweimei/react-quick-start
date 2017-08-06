@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const Merge = require('webpack-merge');
+const pxtorem = require('postcss-pxtorem'); //px自动转为rem
 
 const CommonConfig = require('./webpack.common.js');
 
@@ -18,12 +19,26 @@ module.exports = Merge(CommonConfig, {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader',{
+          loader: 'postcss-loader',
+          options: {
+            plugins(){
+              return [pxtorem({ rootValue: 75, propWhiteList: [], minPixelValue: 1 })]
+            }
+          }
+        }]
       },
       {
         test: /\.less$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'less-loader']
+        use: ['style-loader', 'css-loader', {
+          loader: 'postcss-loader',
+          options: {
+            plugins(){
+              return [pxtorem({ rootValue: 75, propWhiteList: [], minPixelValue: 1 })]
+            }
+          }
+        }, 'less-loader']
       },
     ]
   },

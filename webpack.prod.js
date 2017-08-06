@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const Merge = require('webpack-merge');
 const autoprefixer = require('autoprefixer'); //自动加前缀
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // 单独打包css
+const pxtorem = require('postcss-pxtorem');
 
 const CommonConfig = require('./webpack.common.js');
 
@@ -32,7 +33,10 @@ module.exports = Merge(CommonConfig, {
               loader: 'postcss-loader',
               options: {
                 plugins() {
-                  return [autoprefixer];
+                  return [
+                    autoprefixer,
+                    pxtorem({ rootValue: 75, propWhiteList: [], minPixelValue: 1 })
+                  ];
                 }
               }
             }],
@@ -48,7 +52,10 @@ module.exports = Merge(CommonConfig, {
               loader: 'postcss-loader',
               options: {
                 plugins() {
-                  return [autoprefixer];
+                  return [
+                    autoprefixer,
+                    pxtorem({ rootValue: 75, propWhiteList: [], minPixelValue: 1 })
+                  ];
                 }
               }
             },'less-loader']

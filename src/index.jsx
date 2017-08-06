@@ -16,11 +16,14 @@ class Main extends Component {
     return (
       <div className="my-app">
         <App />
-        <p className="icon">hello world!</p>
+        <p ref="tt" className="icon">hello world!</p>
         {/* 在js文件中引用图片，正确的写法是通过模块化require的方式引用图片路径 */}
         <div className="box"><img src={require('./test/xhr.png')} /></div>
       </div>
     );
+  }
+  componentDidMount() {
+    console.log(this.refs.tt.style);
   }
 }
 
