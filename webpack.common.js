@@ -3,10 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports= {
-  entry: {
-    vendor: './src/vendor.jsx',
-    index: './src/index.jsx'
-  },
   module: {
     rules: [
       {
@@ -69,13 +65,17 @@ module.exports= {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor','manifest']  //将公共的代码打包到vendor.js中，将文件名打包到mainfest中，这样vendor文件名的改变，不会引起其它js文件在打包过程时发生改变
+      names: ['vendor', 'manifest'], // 将公共的代码打包到vendor.js中，将文件名打包到mainfest中，这样vendor文件名的改变，不会引起其它js文件在打包过程时发生改变
     }),
-    new webpack.DefinePlugin({ //插入环境变量
-      TIME: (new Date()).getTime()
+    new webpack.DefinePlugin({ // 插入环境变量
+
+    }),
+    new webpack.ProvidePlugin({ //配置全局变量
+      React: 'react',
+      ReactDOM: 'react-dom'
     })
   ],
 }

@@ -6,6 +6,15 @@ const pxtorem = require('postcss-pxtorem'); //px自动转为rem
 const CommonConfig = require('./webpack.common.js');
 
 module.exports = Merge(CommonConfig, {
+  entry: {
+    index: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/only-dev-server',
+      './src/index.js'
+    ],
+    vendor: ['react', 'react-dom']
+  },
   output: {
     /*
       把资源文件js，图片等都放到assets目录下,一般不要使用，除非确定将一些静态资源js和图片放入某个服务器下作为缓存
